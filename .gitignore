@@ -28,4 +28,5 @@ ompiled Object files
 *.app
 
 # Mac Shenanigans
+*.DS_Store
 .DS_Store
