@@ -26,3 +26,6 @@ ompiled Object files
 *.exe
 *.out
 *.app
+
+# Mac Shenanigans
+.DS_Store
