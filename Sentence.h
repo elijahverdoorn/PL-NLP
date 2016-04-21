@@ -21,10 +21,10 @@ public:
 	void setSource(std::string s);
 	std::string getSource();
 	std::vector<std::string> getTokenized();
+	void printTokens();
 
 private:
 	void updateVector();
-	void printTokens();
 
 };
 

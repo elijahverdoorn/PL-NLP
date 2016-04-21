@@ -40,3 +40,11 @@ void Sentence::updateVector()
 	}
 
 }
+
+void Sentence::printTokens()
+{
+	for(int i = 0; i < tokenized.size(); i++)
+	{
+		std::cout << tokenized[i] << std::endl;
+	}
+}
