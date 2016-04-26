@@ -1,0 +1,13 @@
+person
+dog
+cat
+rat
+bird
+brother
+sister
+guy
+girl
+brother
+sister
+father
+mother
