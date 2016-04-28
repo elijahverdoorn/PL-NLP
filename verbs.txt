@@ -8,4 +8,8 @@ yelled
 fought
 ate
 desires
-
+jump
+jumped
+run
+speak
+eat

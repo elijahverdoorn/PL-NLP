@@ -6,7 +6,7 @@
 #include <vector>
 #include <stdio.h>
 #include <cstring>
-using namespace std;
+#include <fstream>
 
 enum WordType 
 {
@@ -15,27 +15,24 @@ enum WordType
 	ADJECTIVE
 };
 
-string WordTypeToString[] =
-{
-    "Determiner",
-    "Verb",
-    "Adjective"
-};
-
 class Word {
-	string word;
-	WordType type;
+	std::string word;
+	std::string wordType;
 
 public:
 	//constructors
 	Word();
-	Word(string w);
+	Word(std::string w);
 
 	//methods
 	void printWord();
+	std::string getSource();
 	void printWordType();
-	string returnWordType();
-	string getType();
+	std::string getWordType();
+	std::string getType();
+
+private:
+	std::string setType();
 };
 
 #endif

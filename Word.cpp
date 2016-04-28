@@ -1,39 +1,56 @@
 #include "Word.h"
 
-Word::Word() {
+Word::Word() 
+{
 	word = "example";
 }
 
-Word::Word(std::string w) {
+Word::Word(std::string w) 
+{
 	word = w;
+  	wordType = setType();
 }
 
-void Word::printWord() {
-	cout << "Word: " << word << endl;
+std::string Word::getSource()
+{
+	return word;
 }
 
-void Word::printWordType() {
-	cout << "Word: " << word << " Type: " << type << endl;
+void Word::printWord() 
+{
+	std::cout << "Word: " << word << std::endl;
 }
 
-string Word::returnWordType() {
-	return "Word: " + word + " Type: " + WordTypeToString[type];
+void Word::printWordType() 
+{
+	std::cout << "Word: " << word << " Type: " << wordType << std::endl;
 }
 
-string Word::getType() {
-  int numTypes = 7;
-  string typeLabels [numTypes] = {"adjective", "adverb", "article", "conjunction", "noun", "subject", "verb"};
-  string typeFiles [numTypes] = {"adjectives.txt", "adverbs.txt", "articles.txt", "conjunctions.txt", "nouns.txt", "subject.txt", "verbs.txt"};
-  for (int i = 0; i < numTypes; i++) {
-    ifstream in(typeFiles[i].c_str());
-    string databaseWord;
-    while (in>>databaseWord) {   
-      if (strcmp(word.c_str(), databaseWord.c_str()) == 0 ) {
-	in.close();
-	return typeLabels[i];
-      }
-    }
-    in.close();
-  }
-  return "invalid";
+std::string Word::getType() 
+{
+	return wordType;
+}
+
+std::string Word::setType()
+{
+	int numTypes = 7;
+	std::string typeLabels[numTypes] = {"adjective", "adverb", "article", "conjunction", "noun", "subject", "verb"};
+	std::string typeFiles[numTypes] = {"adjectives.txt", "adverbs.txt", "articles.txt", "conjunctions.txt", "nouns.txt", "subject.txt", "verbs.txt"};
+
+	for (int i = 0; i < numTypes; i++)
+	{
+		std::ifstream in(typeFiles[i].c_str());
+		std::string databaseWord;
+		while (in >> databaseWord)
+		{   
+			if (strcmp(word.c_str(), databaseWord.c_str()) == 0)
+			{
+				//std::cout << typeLabels[i] << std::endl;
+				in.close();
+				return typeLabels[i];
+			}
+		}
+		in.close();
+	}
+	return "invalid";
 }

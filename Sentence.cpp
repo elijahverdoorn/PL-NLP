@@ -1,4 +1,5 @@
 #include "Sentence.h"
+#include "Word.h"
 
 Sentence::Sentence()
 {
@@ -29,7 +30,6 @@ std::vector<std::string> Sentence::getTokenized()
 
 void Sentence::updateVector()
 {
-	// tokenized = new std::Vector<std::string>();
 	char * unTokenized = new char [source.length() + 1];
 	std::strcpy(unTokenized, source.c_str());
 	char * tokens = std::strtok(unTokenized, " ");
@@ -41,9 +41,10 @@ void Sentence::updateVector()
 	}
 	
 	// parse the word, then add it to the vector of parsed words for this sentence.
-	for(int i = 0; i <= tokenized.size(); i++)
+	for(int i = 0; i < tokenized.size(); i++)
 	{
-		parsedWords.push_back(new Word(tokenized[i]));
+		Word w(tokenized[i]);
+		parsedWords.push_back(w);
 	}
 }
 
@@ -60,21 +61,25 @@ std::vector<Word> Sentence::getWords()
 	return parsedWords;
 }
 
-Word Sentence getWordAt(int index)
+Word Sentence::getWordAt(int index)
 {
-	return parsedWords[i];
+	return parsedWords[index];
 }
 
-void Sentence::setWords(Word* words)
-{
-	parsedWords = new vector<Word>(words);
-}
+// void Sentence::setWords(Word* words)
+// {
+// 	parsedWords = new vector<Word>();
+// 	for(int i = 0; words[i] != NULL; i++)
+// 	{
+// 		parsedWords.push_back(words[i]);
+// 	}
+// }
 
 void Sentence::printParsedSentence()
 {
-	for(int i = 0; i <= parsedWords.size(); i++)
+	for(int i = 0; i < parsedWords.size(); i++)
 	{
-		std::cout << parsedWords[i].returnWordType();
+		std::cout << parsedWords[i].getType() << " ";
 	}
 	std::cout << std::endl;
 }

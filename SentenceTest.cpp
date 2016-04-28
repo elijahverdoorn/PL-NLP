@@ -11,8 +11,8 @@ int main(int argc, char const *argv[])
 	std::getline(std::cin, userInput);
 
 	Sentence mySentence (userInput);
-	mySentence.printTokens();
-	// std::cout << mySentence.getSource() << std::endl;
-
+	//mySentence.printTokens();
+	
+	mySentence.printParsedSentence();
 	return 0;
 }
