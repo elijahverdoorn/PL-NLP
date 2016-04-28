@@ -15,7 +15,7 @@ class Sentence
 	std::vector<Word> parsedWords;
 
 public:
-	//constructos
+	//constructors
 	Sentence();
 	Sentence(std::string s);
 	
