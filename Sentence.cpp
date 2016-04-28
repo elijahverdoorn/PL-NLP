@@ -38,7 +38,12 @@ void Sentence::updateVector()
 		tokenized.push_back(std::string(tokens));
 		tokens = strtok(NULL, " ");
 	}
-
+	
+	// parse the word, then add it to the vector of parsed words for this sentence.
+	for(int i = 0; i <= tokenized.size(); i++)
+	{
+		parsedWords.push_back(new Word(tokenized[i]));
+	}
 }
 
 void Sentence::printTokens()
@@ -47,4 +52,28 @@ void Sentence::printTokens()
 	{
 		std::cout << tokenized[i] << std::endl;
 	}
+}
+
+std::vector<Word> Sentence::getWords()
+{
+	return parsedWords;
+}
+
+Word Sentence getWordAt(int index)
+{
+	return parsedWords[i];
+}
+
+void Sentence::setWords(Word* words)
+{
+	parsedWords = new vector<Word>(words);
+}
+
+void Sentence::printParsedSentence()
+{
+	for(int i = 0; i <= parsedWords.size(); i++)
+	{
+		std::cout << parsedWords[i].returnWordType();
+	}
+	std::cout << std::endl;
 }
