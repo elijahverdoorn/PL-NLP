@@ -2,8 +2,9 @@
 
 Sentence::Sentence()
 {
-
+	//nothing to do here
 }
+
 Sentence::Sentence(std::string s)
 {
 	source = s;

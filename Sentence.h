@@ -13,7 +13,7 @@ class Sentence
 	std::vector<std::string> tokenized;
 
 public:
-	//constructos
+	//constructors
 	Sentence();
 	Sentence(std::string s);
 	
