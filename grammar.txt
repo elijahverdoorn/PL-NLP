@@ -1,0 +1,12 @@
+$NP
+	ADJ NP
+	NOUN
+$VP
+	VERB NP
+	VERB
+$ADJ
+	"adjectives.txt"
+$VERB
+	"verbs.txt"
+$NOUN
+	"nouns.txt"

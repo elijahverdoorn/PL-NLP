@@ -31,7 +31,7 @@ public:
 
 private:
 	void updateVector();
-
+	int findPhrases();
 };
 
 #endif

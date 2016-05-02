@@ -45,7 +45,6 @@ std::string Word::setType()
 		{   
 			if (strcmp(word.c_str(), databaseWord.c_str()) == 0)
 			{
-				//std::cout << typeLabels[i] << std::endl;
 				in.close();
 				return typeLabels[i];
 			}

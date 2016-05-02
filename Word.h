@@ -10,9 +10,9 @@
 
 enum WordType 
 {
-	DETERMINER, 
-	VERB, 
-	ADJECTIVE
+	determiner,
+	verb,
+	adjective
 };
 
 class Word {
