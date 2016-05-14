@@ -16,22 +16,21 @@ enum PhraseType {
 	adjective
 };
 
-class Phrase 
+class Phrase
 {
 public:
-	std::vector<Word> words;
-	PhraseType phraseType;
-	bool terminal;
+	std::vector<Word> words; // the words that make up this phrase
+	PhraseType phraseType; // see above
+	bool terminal; // is this the end of a branch of the tree?
 
 	//constructors
 	Phrase();
 	Phrase(std::vector<Word> v);
 
-	std::vector<Word> getWords();
-	PhraseType getPhraseType();
-	bool isTerminal();
+	std::vector<Word> getWords(); // return the words that are in this phrase
+	PhraseType getPhraseType(); // return the phrase type 
+	bool isTerminal(); // return the value in terminal
 private:
 
 };
-
 #endif
