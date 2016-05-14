@@ -1,28 +1,22 @@
-current: SentenceTest
+CC=g++ #the compiler
 
-SentenceTest.o: SentenceTest.cpp
-	g++ -c -std=c++11 SentenceTest.cpp
+CFLAGS=-c -Wall #the flags
 
-SentenceTest: SentenceTest.o Sentence.o Word.o Phrase.o Verb.o Adjective.o Verb.o
-	g++ -o SentenceTest SentenceTest.o Sentence.o Word.o Phrase.o Noun.o Adjective.o Verb.o
 
-Sentence.o: Sentence.cpp Sentence.h Word.h Word.o
-	g++ -c -std=c++11 Sentence.cpp
+CC=g++
+CFLAGS=-c -Wall
+LDFLAGS=
+HEADERS=
+SOURCES=main.cpp hello.cpp factorial.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=hello
 
-Word.o: Word.cpp Word.h
-	g++ -c -std=c++11 Word.cpp
-	
-Phrase.o: Phrase.h Phrase.cpp
-	g++ -c -std=c++11 Phrase.cpp
+all: $(SOURCES) $(EXECUTABLE)
 
-Noun.o: Phrase.h Phrase.cpp Noun.h Noun.cpp
-	g++ -c -std=c++11 Noun.cpp
+UTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
-Adjective.o: Phrase.h Phrase.cpp Adjective.h Adjective.cpp
-	g++ -c -std=c++11 Adjective.cpp
-
-Verb.o: Phrase.h Phrase.cpp Verb.h Verb.cpp
-	g++ -c -std=c++11 Verb.cpp
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm *.o
