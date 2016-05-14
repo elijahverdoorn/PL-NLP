@@ -15,7 +15,7 @@ class Noun: public Phrase
 public:
 	//constructors
 	Noun();
-	Noun(std::vector<Word> v;
+	Noun(std::vector<Word> v);
 private:
 	void setPhraseType();
 };
