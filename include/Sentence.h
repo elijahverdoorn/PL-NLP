@@ -7,31 +7,21 @@
 #include <stdio.h>
 #include <cstring>
 #include "Word.h"
+#include "Phrase.h"
+#include "NounPhrase.h"
+#include "VerbPhrase.h"
 
-class Sentence
+class Sentence : public Phrase
 {
-	std::string source;
-	std::vector<std::string> tokenized;
-	std::vector<Word> parsedWords;
+	VerbPhrase *myVerbPhrase;
+	NounPhrase *myNounPhrase;
 
 public:
-	//constructors
 	Sentence();
-	Sentence(std::string s);
-	
-	//methods
-	void setSource(std::string s);
-	std::string getSource();
-	std::vector<std::string> getTokenized();
-	void printTokens();
-	std::vector<Word> getWords();
-	Word getWordAt(int index);	
-	void setWords(Word* words);	
-	void printParsedSentence();
-
+	Sentence(std::vector<Word> v;);
 private:
-	void updateVector();
-	int findPhrases();
+	void setPhraseType();
+
 };
 
 #endif

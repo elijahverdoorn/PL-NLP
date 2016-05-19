@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Phrase.h"
 #include "NounPhrase.h"
 #include "Noun.h"
@@ -9,7 +10,7 @@
 
 using namespace std;
 
-PhraseType isPhrase(Phrase phrase)
+PhraseType isPhrase(Phrase phrase) // checks if the phrase is a known type and returns that type.
 {
 	switch(phrase.getPhraseType())
 	{
@@ -25,7 +26,7 @@ PhraseType isPhrase(Phrase phrase)
 	return none;
 }
 
-PhraseType isPhrase(Phrase first, Phrase second)
+PhraseType isPhrase(Phrase first, Phrase second) // as above, but for more than 1 argument
 {
 	if (first.getPhraseType() == adjective && second.getPhraseType() == nounPhrase)
 	{
@@ -38,7 +39,7 @@ PhraseType isPhrase(Phrase first, Phrase second)
 	return none;
 }
 
-Phrase buildPhrase(PhraseType type, Phrase phrase)
+Phrase buildPhrase(PhraseType type, Phrase phrase) // creates the phrase for a single element phrase. input the type of phrase desired, and the prhase itself.
 {
 	Phrase* returner;
 	switch (type)
@@ -55,7 +56,7 @@ Phrase buildPhrase(PhraseType type, Phrase phrase)
 	return *returner;
 }
 
-Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
+Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2) // as above, but the output contains the two phrases that are input
 {
 	std::vector<Word> v;
 	v.reserve(phrase1.getWords().size() + phrase2.getWords().size());
@@ -78,36 +79,63 @@ Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
 	return *returner;
 }
 
-void printState(std::vector<Phrase> v)
+void printState(std::vector<Phrase> v) // Print the current state of the paramter to the terminal
 {
 	for (unsigned int i = 0; i < v.size(); i++)
 	{
-		cout << v[i].getPhraseType();
+		//cout << v[i].getPhraseType();
+		switch (v[i].getPhraseType())
+		{
+			case 0:
+				cout << "nounPhrase ";
+				break;
+			case 1:
+				cout << "verbPhrase ";
+				break;
+			case 2:
+				cout << "verb ";
+				break;
+			case 3:
+				cout << "noun ";
+				break;
+			case 4:
+				cout << "adjective ";
+				break;
+			case 5:
+				cout << "sentence ";
+				break;
+			case 6:
+				cout << "none ";
+				break;
+			default:
+				cout << "ERROR: bad phrase type";
+				break;
+		}
 	}
 	cout << endl;
 }
 
-vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0)
+vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0) // workhorse parsing function, written recursively
 {
-	printState(v);
+	printState(v); // let the user know where we are, for debugging
 	if(v[pos].getPhraseType() != sentence)
 	{
-		if(v[pos].isTerminal())
+		if(v[pos].isTerminal()) // is this a final state?
 		{
 			PhraseType ptype = isPhrase(v[pos]);
-			if(ptype != none)
+			if(ptype != none) // so long as the phrase is not none
 			{
 				vector<Phrase> newPhrase;
 				for(unsigned int i = 0; i < pos; i++)
 				{
 					newPhrase.push_back(v[i]);
 				}
-				newPhrase.push_back(buildPhrase(ptype, v[pos]));
+				newPhrase.push_back(buildPhrase(ptype, v[pos])); // build a phrase, then add it in it's place to the larger structure
 				for(unsigned int i = pos + 1; i < v.size(); i++)
 				{
 					newPhrase.push_back(v[i]);
 				}
-				parse(newPhrase, 0);
+				parse(newPhrase, 0); // parse the result, starting over at the beginning of the structure
 			} else {
 				ptype = isPhrase(v[pos], v[pos + 1]);
 				if(ptype != none)
@@ -117,14 +145,14 @@ vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0)
 					{
 						newPhrase.push_back(v[i]);
 					}
-					newPhrase.push_back(buildPhrase(ptype, v[pos], v[pos + 1]));
+					newPhrase.push_back(buildPhrase(ptype, v[pos], v[pos + 1])); // build a phrase, and add it in it's place to the larger structure
 					for (unsigned int i = pos + 2; i < v.size(); i++)
 					{
 						newPhrase.push_back(v[i]);
 					}
-					parse(newPhrase, 0);
+					parse(newPhrase, 0); // parse the new structure, starting at the beginning
 				} else {
-					parse(v, pos + 1);
+					parse(v, pos + 1); // parse the next element of the structure
 				}
 			}
 		}
@@ -132,10 +160,46 @@ vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0)
 	return v;
 }
 
+// interacion function that gets input from the user and returns it as a vector of phrases.
+// Also acts as a tokenizer
+std::vector<Phrase> getInput()
+{
+	cout << "Enter a Phrase:" << endl; // prompt
+
+	string userInput;
+	getline(cin, userInput);
+	char* unTokenized  = new char [userInput.length() + 1];
+	strcpy(unTokenized, userInput.c_str());
+	char* tokens = strtok(unTokenized, " ");
+	
+	vector<string> tokenized; // start with strings
+	while(tokens != NULL)
+	{
+		tokenized.push_back(string(tokens));
+		tokens = strtok(NULL, " ");
+	}
+
+	vector<Word> words; // then make them words
+	for(unsigned int i = 0; i < tokenized.size(); i++)
+	{
+		Word w(tokenized[i]);
+		words.push_back(w);
+	}
+
+	vector<Phrase> phrases; // and finally make the words into phrases
+	for (unsigned int i = 0; i < words.size(); ++i)
+	{
+		Phrase p(words[i]);
+		phrases.push_back(p);
+	}
+	return phrases;
+}
+
+
 int main ()
 {
-	//vector<Phrase> testPhrase = {     }
-	//parse(testPhrase);
+	vector<Phrase> testPhrase = getInput();
+	parse(testPhrase);
 	return 0;
 
 }

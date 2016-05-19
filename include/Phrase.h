@@ -28,6 +28,7 @@ public:
 	//constructors
 	Phrase();
 	Phrase(std::vector<Word> v);
+	Phrase(Word w);
 
 	std::vector<Word> getWords(); // return the words that are in this phrase
 	PhraseType getPhraseType(); // return the phrase type 

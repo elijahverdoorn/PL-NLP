@@ -35,7 +35,7 @@ std::string Word::setType()
 {
 	int numTypes = 7;
 	std::string typeLabels[numTypes] = {"adjective", "adverb", "article", "conjunction", "noun", "subject", "verb"};
-	std::string typeFiles[numTypes] = {"adjectives.txt", "adverbs.txt", "articles.txt", "conjunctions.txt", "nouns.txt", "subject.txt", "verbs.txt"};
+	std::string typeFiles[numTypes] = {"../res/adjectives.txt", "../res/adverbs.txt", "../res/articles.txt", "../res/conjunctions.txt", "../res/nouns.txt", "subject.txt", "verbs.txt"};
 
 	for (int i = 0; i < numTypes; i++)
 	{
