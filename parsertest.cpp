@@ -35,7 +35,7 @@ PhraseType isPhrase(Phrase first, Phrase second) // as above, but for more than 
 	if (first.getPhraseType() == verb && second.getPhraseType() == nounPhrase)
 	{
 		return verbPhrase;
-	}
+	}	
 	return none;
 }
 
