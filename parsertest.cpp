@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 PhraseType isPhrase(Phrase phrase)
 {
 	switch(phrase.getPhraseType())
