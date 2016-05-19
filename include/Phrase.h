@@ -14,6 +14,7 @@ enum PhraseType {
 	verb,
 	noun,
 	adjective,
+	sentence,
 	none // for the isPhrase function, represents the idea that the current set of phrases do not make one of the defined phrases
 };
 

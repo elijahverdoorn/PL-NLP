@@ -9,7 +9,7 @@
 CC = g++
 
 # define any compile-time flags
-CFLAGS = -Wall -c
+CFLAGS = -Wall
 
 # define any directories containing header files other than /usr/include
 #
@@ -26,7 +26,7 @@ LFLAGS =
 LIBS =
 
 # define the C source files
-SRCS = src/Adjective.cpp src/Noun.cpp src/NounPhrase.cpp src/Phrase.cpp src/Verb.cpp src/Word.cpp parsertest.cpp
+SRCS = src/Adjective.cpp src/Noun.cpp src/NounPhrase.cpp src/VerbPhrase.cpp src/Phrase.cpp src/Verb.cpp src/Word.cpp parsertest.cpp
 
 # define the C object files 
 #

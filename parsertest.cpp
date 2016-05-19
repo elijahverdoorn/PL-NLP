@@ -52,14 +52,14 @@ Phrase buildPhrase(PhraseType type, Phrase phrase)
 		default:
 			break;
 	}
-	return returner;
+	return *returner;
 }
 
-Phrase* buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
+Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
 {
-	std::vector<Phrase> v;
+	std::vector<Word> v;
 	v.reserve(phrase1.getWords().size() + phrase2.getWords().size());
-	v.insert(v.end(), phrase1.getWords.begin(), phrase1.getWords().end());
+	v.insert(v.end(), phrase1.getWords().begin(), phrase1.getWords().end());
 	v.insert(v.end(), phrase2.getWords().begin(), phrase2.getWords().end()); // v contains the words in the 2 phrases, in the right order
 
 	Phrase* returner;
@@ -75,10 +75,19 @@ Phrase* buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
 		default:
 			break;
 	}
-	return returner;
+	return *returner;
 }
 
-vector<Phrase> parse(vector<Phrase> &v, int pos = 0)
+void printState(std::vector<Phrase> v)
+{
+	for (unsigned int i = 0; i < v.size(); i++)
+	{
+		cout << v[i].getPhraseType();
+	}
+	cout << endl;
+}
+
+vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0)
 {
 	printState(v);
 	if(v[pos].getPhraseType() != sentence)
@@ -89,12 +98,12 @@ vector<Phrase> parse(vector<Phrase> &v, int pos = 0)
 			if(ptype != none)
 			{
 				vector<Phrase> newPhrase;
-				for(int i = 0; i < pos; i++)
+				for(unsigned int i = 0; i < pos; i++)
 				{
 					newPhrase.push_back(v[i]);
 				}
 				newPhrase.push_back(buildPhrase(ptype, v[pos]));
-				for(int i = pos + 1; i < v.size(); i++)
+				for(unsigned int i = pos + 1; i < v.size(); i++)
 				{
 					newPhrase.push_back(v[i]);
 				}
@@ -104,12 +113,12 @@ vector<Phrase> parse(vector<Phrase> &v, int pos = 0)
 				if(ptype != none)
 				{
 					vector<Phrase> newPhrase;
-					for (int i = 0; i < pos; i++)
+					for (unsigned int i = 0; i < pos; i++)
 					{
 						newPhrase.push_back(v[i]);
 					}
 					newPhrase.push_back(buildPhrase(ptype, v[pos], v[pos + 1]));
-					for (int i = pos + 2; i < v.size(); i++)
+					for (unsigned int i = pos + 2; i < v.size(); i++)
 					{
 						newPhrase.push_back(v[i]);
 					}
@@ -121,15 +130,6 @@ vector<Phrase> parse(vector<Phrase> &v, int pos = 0)
 		}
 	}
 	return v;
-}
-
-void printState(std::vector<Phrase> v)
-{
-	for (int i = 0; i < v.size(); i++)
-	{
-		cout << v[i].getPhraseType();
-	}
-	cout << endl;
 }
 
 int main ()
