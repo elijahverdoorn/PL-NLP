@@ -1,4 +1,3 @@
-#include "../include/Phrase.h"
 #include "../include/Adjective.h"
 
 Adjective::Adjective()
@@ -6,7 +5,7 @@ Adjective::Adjective()
 
 }
 
-Adjective::Adjective(std::vector<Word> v) : Phrase(v)
+Adjective::Adjective(std::vector<std::string> v) : Phrase(v)
 {
 	terminal = true;
 }

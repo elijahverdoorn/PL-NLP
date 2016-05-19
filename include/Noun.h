@@ -6,7 +6,6 @@
 #include <vector>
 #include <stdio.h>
 #include <cstring>
-#include "Word.h"
 #include "Phrase.h"
 
 class Noun: public Phrase
@@ -15,7 +14,7 @@ class Noun: public Phrase
 public:
 	//constructors
 	Noun();
-	Noun(std::vector<Word> v);
+	Noun(std::vector<std::string> v);
 private:
 	void setPhraseType();
 };

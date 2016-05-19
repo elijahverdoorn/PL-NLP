@@ -1,4 +1,3 @@
-#include "../include/Word.h"
 #include "../include/Noun.h"
 
 Noun::Noun()
@@ -6,7 +5,7 @@ Noun::Noun()
 
 }
 
-Noun::Noun(std::vector<Word> v) : Phrase(v)
+Noun::Noun(std::vector<std::string> v) : Phrase(v)
 {
 	terminal = true;
 }

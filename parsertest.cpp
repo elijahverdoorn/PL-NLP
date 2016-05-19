@@ -58,7 +58,7 @@ Phrase buildPhrase(PhraseType type, Phrase phrase) // creates the phrase for a s
 
 Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2) // as above, but the output contains the two phrases that are input
 {
-	std::vector<Word> v;
+	std::vector<string> v;
 	v.reserve(phrase1.getWords().size() + phrase2.getWords().size());
 	v.insert(v.end(), phrase1.getWords().begin(), phrase1.getWords().end());
 	v.insert(v.end(), phrase2.getWords().begin(), phrase2.getWords().end()); // v contains the words in the 2 phrases, in the right order
@@ -182,18 +182,11 @@ std::vector<Phrase> getInput()
 		tokens = strtok(NULL, " ");
 	}
 
-	vector<Word> words; // then make them words
-	for(unsigned int i = 0; i < tokenized.size(); i++)
-	{
-		Word w(tokenized[i]);
-		w.printWordType();
-		words.push_back(w);
-	}
-
 	vector<Phrase> phrases; // and finally make the words into phrases
-	for (unsigned int i = 0; i < words.size(); ++i)
+	for (unsigned int i = 0; i < tokenized.size(); ++i)
 	{
-		Phrase p(words[i]);
+		Phrase p(tokenized[i]);
+		cout << p.getPhraseType() << endl;
 		phrases.push_back(p);
 	}
 	return phrases;

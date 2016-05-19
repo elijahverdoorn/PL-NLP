@@ -1,4 +1,3 @@
-#include "../include/Word.h"
 #include "../include/Verb.h"
 
 Verb::Verb()
@@ -6,7 +5,7 @@ Verb::Verb()
 
 }
 
-Verb::Verb(std::vector<Word> v) : Phrase(v)
+Verb::Verb(std::vector<std::string> v) : Phrase(v)
 {
 	terminal = true;
 }

@@ -84,7 +84,6 @@
 // 	std::cout << std::endl;
 // }
 
-#include "../include/Word.h"
 #include "../include/Sentence.h"
 
 Sentence::Sentence()
@@ -92,7 +91,7 @@ Sentence::Sentence()
 
 }
 
-Sentence::Sentence(std::vector<Word> v) : Phrase(v)
+Sentence::Sentence(std::vector<std::string> v) : Phrase(v)
 {
 	terminal = false;
 }

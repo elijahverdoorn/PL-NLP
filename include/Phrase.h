@@ -6,34 +6,34 @@
 #include <vector>
 #include <stdio.h>
 #include <cstring>
-#include "Word.h"
+#include <fstream>
 
 enum PhraseType {
-	nounPhrase,
-	verbPhrase,
-	verb,
-	noun,
-	adjective,
-	sentence,
-	none // for the isPhrase function, represents the idea that the current set of phrases do not make one of the defined phrases
+	nounPhrase, //0
+	verbPhrase, //1
+	verb, 		//2
+	noun,		//3
+	adjective,	//4
+	sentence,	//5
+	none 		//6, used to represent invalid inputs 
 };
 
 class Phrase
 {
 public:
-	std::vector<Word> words; // the words that make up this phrase
+	std::vector<std::string> words; // the words that make up this phrase
 	PhraseType phraseType; // see above
 	bool terminal; // is this the end of a branch of the tree?
 
 	//constructors
 	Phrase();
-	Phrase(std::vector<Word> v);
-	Phrase(Word w);
+	Phrase(std::vector<std::string> v);
+	Phrase(std::string w);
 
-	std::vector<Word> getWords(); // return the words that are in this phrase
+	std::vector<std::string> getWords(); // return the words that are in this phrase
 	PhraseType getPhraseType(); // return the phrase type 
 	bool isTerminal(); // return the value in terminal
 private:
-
+	PhraseType checkFiles(std::string word);
 };
 #endif

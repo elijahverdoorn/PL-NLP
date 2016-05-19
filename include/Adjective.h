@@ -6,7 +6,6 @@
 #include <vector>
 #include <stdio.h>
 #include <cstring>
-#include "Word.h"
 #include "Phrase.h"
 
 class Adjective: public Phrase
@@ -15,7 +14,7 @@ class Adjective: public Phrase
 public:
 	//constructors
 	Adjective();
-	Adjective(std::vector<Word> v);
+	Adjective(std::vector<std::string> v);
 
 private:
 	void setPhraseType();
