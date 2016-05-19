@@ -117,10 +117,13 @@ void printState(std::vector<Phrase> v) // Print the current state of the paramte
 
 vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0) // workhorse parsing function, written recursively
 {
+
+	//TODO: There's a segfault in here somewhere. find and fix it.
+
 	printState(v); // let the user know where we are, for debugging
 	if(v[pos].getPhraseType() != sentence)
 	{
-		if(v[pos].isTerminal()) // is this a final state?
+		if(!v[pos].isTerminal()) // is this a final state?
 		{
 			PhraseType ptype = isPhrase(v[pos]);
 			if(ptype != none) // so long as the phrase is not none
@@ -183,6 +186,7 @@ std::vector<Phrase> getInput()
 	for(unsigned int i = 0; i < tokenized.size(); i++)
 	{
 		Word w(tokenized[i]);
+		w.printWordType();
 		words.push_back(w);
 	}
 
