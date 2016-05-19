@@ -39,10 +39,12 @@ bool Phrase::isTerminal()
 
 PhraseType Phrase::checkFiles(std::string word)
 {
-	std::string returner;
-	int numTypes = 7;
-	std::string typeLabels[numTypes] = {"adjective", "adverb", "article", "conjunction", "noun", "subject", "verb"};
-	std::string typeFiles[numTypes] = {"../res/adjectives.txt", "../res/adverbs.txt", "../res/articles.txt", "../res/conjunctions.txt", "../res/nouns.txt", "subject.txt", "verbs.txt"};
+	//std::string returner;
+	int numTypes = 3;
+	PhraseType typeLabels[numTypes] = {adjective, noun, verb};
+	std::string typeFiles[numTypes] = {"adjectives.txt", "nouns.txt", "verbs.txt"};
+	//std::string typeLabels[numTypes] = {"adjective", "adverb", "article", "conjunction", "noun", "subject", "verb"};
+	//std::string typeFiles[numTypes] = {"../res/adjectives.txt", "../res/adverbs.txt", "../res/articles.txt", "../res/conjunctions.txt", "../res/nouns.txt", "subject.txt", "verbs.txt"};
 
 	for (int i = 0; i < numTypes; i++)
 	{
@@ -53,26 +55,27 @@ PhraseType Phrase::checkFiles(std::string word)
 			if (strcmp(word.c_str(), databaseWord.c_str()) == 0)
 			{
 				in.close();
-				returner = typeLabels[i];
+				return typeLabels[i];
 			}
 		}
 		in.close();
 	}
 
-	if (strcmp(returner.c_str(), "adjective"))
+	/* 
+	if (strcmp(returner.c_str(), "adjective") == 0)
 	{
 		return adjective;
 	}
 	
-	if (strcmp(returner.c_str(), "noun"))
+	if (strcmp(returner.c_str(), "noun") == 0)
 	{
 		return noun;
 	}
 	
-	if (strcmp(returner.c_str(), "verb"))
+	if (strcmp(returner.c_str(), "verb") == 0)
 	{
 		return verb;
-	}
+	} */
 	//TODO: make this not shit
 	return none;
 }
