@@ -13,38 +13,41 @@ PhraseType isPhrase(Phrase phrase)
 {
 	switch(phrase.getPhraseType())
 	{
-		case PhraseType.noun:
-			return PhraseType.noun;
+		case noun:
+			{return noun;}
 			break;
-		case PhraseType.verb:
-			return PhraseType.verb;
+		case verb:
+			{return verb;}
+			break;
+		default:
 			break;
 	}
-	return PhraseType.none;
+	return none;
 }
 
 PhraseType isPhrase(Phrase first, Phrase second)
 {
-	if (first.getPhraseType() == PhraseType.adjective && second.getPhraseType() == PhraseType.nounPhrase)
+	if (first.getPhraseType() == adjective && second.getPhraseType() == nounPhrase)
 	{
-		return PhraseType.nounPhrase;
+		return nounPhrase;
 	}
-	if (first.getPhraseType() == PhraseType.verb && second.getPhraseType() == PhraseType.nounPhrase)
+	if (first.getPhraseType() == verb && second.getPhraseType() == nounPhrase)
 	{
-		return PhraseType.verbPhrase;
+		return verbPhrase;
 	}
-	return PhraseType.none;
+	return none;
 }
 
 Phrase buildPhrase(PhraseType type, Phrase phrase)
 {
+	Phrase* returner;
 	switch (type)
 	{
-		case PhraseType.noun:
-			Noun(phrase.getWords()) returner;
+		case noun:
+			returner = new Noun(phrase.getWords());
 			break;
-		case PhraseType.verb:
-			Verb(phrase.getWords()) returner;
+		case verb:
+			returner = new Verb(phrase.getWords());
 			break;
 		default:
 			break;
@@ -52,20 +55,22 @@ Phrase buildPhrase(PhraseType type, Phrase phrase)
 	return returner;
 }
 
-Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
+Phrase* buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
 {
 	std::vector<Phrase> v;
 	v.reserve(phrase1.getWords().size() + phrase2.getWords().size());
-	v.insert(v.end(), phrase1.begin(), phrase1.end());
-	v.insert(v.end(), phrase1.begin(), phrase1.end()); // v contains the words in the 2 phrases, in the right order
+	v.insert(v.end(), phrase1.getWords.begin(), phrase1.getWords().end());
+	v.insert(v.end(), phrase2.getWords().begin(), phrase2.getWords().end()); // v contains the words in the 2 phrases, in the right order
+
+	Phrase* returner;
 
 	switch (type)
 	{
-		case PhraseType.nounPhrase:
-			NounPhrase(v) returner;
+		case nounPhrase:
+			returner = new NounPhrase(v);
 			break;
-		case PhraseType.verbPhrase:
-			VerbPhrase(v) returner;
+		case verbPhrase:
+			returner = new VerbPhrase(v);
 			break;
 		default:
 			break;
@@ -73,15 +78,15 @@ Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2)
 	return returner;
 }
 
-vector<Phrase> parse(vector<Phrase>& v, int pos = 0)
+vector<Phrase> parse(vector<Phrase> &v, int pos = 0)
 {
 	printState(v);
-	if(v[pos].getPhraseType() != PhraseType.sentence)
+	if(v[pos].getPhraseType() != sentence)
 	{
 		if(v[pos].isTerminal())
 		{
 			PhraseType ptype = isPhrase(v[pos]);
-			if(ptype != PhraseType.none)
+			if(ptype != none)
 			{
 				vector<Phrase> newPhrase;
 				for(int i = 0; i < pos; i++)
@@ -94,7 +99,10 @@ vector<Phrase> parse(vector<Phrase>& v, int pos = 0)
 					newPhrase.push_back(v[i]);
 				}
 				parse(newPhrase, 0);
-			} else if(ptype = isPhrase(v[pos], v[pos + 1]) != PhraseType.none) {
+			} else {
+				ptype = isPhrase(v[pos], v[pos + 1]);
+				if(ptype != none)
+				{
 					vector<Phrase> newPhrase;
 					for (int i = 0; i < pos; i++)
 					{
@@ -106,13 +114,13 @@ vector<Phrase> parse(vector<Phrase>& v, int pos = 0)
 						newPhrase.push_back(v[i]);
 					}
 					parse(newPhrase, 0);
+				} else {
+					parse(v, pos + 1);
 				}
-		} else {
-			parse(v, pos + 1);
+			}
 		}
-	} else {
-		return v;
 	}
+	return v;
 }
 
 void printState(std::vector<Phrase> v)
@@ -127,6 +135,7 @@ void printState(std::vector<Phrase> v)
 int main ()
 {
 	//vector<Phrase> testPhrase = {     }
-	parse(testPhrase);
+	//parse(testPhrase);
+	return 0;
 
 }
