@@ -17,8 +17,8 @@ enum PhraseType {
 	det,		//5
 	adverb,		//6
 	adverbialPhrase,//7
-	sentence,	//8
-	prep,		//9
+	prep,		//8
+	sentence,	//9
 	none 		//10, used to represent invalid inputs 
 };
 

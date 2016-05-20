@@ -1,5 +1,5 @@
-#ifndef _DET_
-#define _DET_
+#ifndef _DETERMINER_
+#define _DETERMINER_
 
 #include <string>
 #include <iostream>

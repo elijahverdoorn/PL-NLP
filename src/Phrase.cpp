@@ -40,7 +40,7 @@ bool Phrase::isTerminal()
 PhraseType Phrase::checkFiles(std::string word)
 {
 	//std::string returner;
-	int numTypes = 3;
+	int numTypes = 6;
 	PhraseType typeLabels[numTypes] = {adjective, adverb, det, prep, noun, verb};
 	//std::string typeFiles[numTypes] = {"adjectives.txt", "nouns.txt", "verbs.txt"};
 	//std::string typeLabels[numTypes] = {"adjective", "adverb", "article", "conjunction", "noun", "subject", "verb"};
