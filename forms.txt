@@ -1,0 +1,13 @@
+~ NP: nounPhrase ~
+D NP: determiner, nounPhrase
+Aj NP: adjective, nounPhrase
+
+~ AP: AdverbialPhrase ~
+P NP: preposition, nounPhrase
+NP P: nounPhrase, preposition
+Av: adverb
+
+~ VP: VerbPhrase ~
+V NP AP: verb, nounPhrase, adverbialPhrase
+V NP: verb, nounPhrase
+VP AP: verbPhrase, adverbialPhrase

@@ -9,6 +9,7 @@
 #include "Phrase.h"
 #include "Verb.h"
 #include "NounPhrase.h"
+#include "AdverbialPhrase.h"
 
 class VerbPhrase: public Phrase
 {

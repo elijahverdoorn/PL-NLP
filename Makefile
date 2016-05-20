@@ -26,7 +26,7 @@ LFLAGS =
 LIBS =
 
 # define the C source files
-SRCS = src/Adjective.cpp src/Noun.cpp src/NounPhrase.cpp src/VerbPhrase.cpp src/Phrase.cpp src/Verb.cpp parsertest.cpp
+SRCS = src/Adjective.cpp src/Noun.cpp src/NounPhrase.cpp src/VerbPhrase.cpp src/Phrase.cpp src/Verb.cpp src/Adverb.cpp src/AdverbialPhrase.cpp src/Determiner.cpp src/Preposition.cpp parsertest.cpp
 
 # define the C object files 
 #

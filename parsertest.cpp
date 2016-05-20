@@ -7,6 +7,10 @@
 #include "VerbPhrase.h"
 #include "Verb.h"
 #include "Adjective.h"
+#include "Preposition.h"
+#include "Adverb.h"
+#include "AdverbialPhrase.h"
+#include "Determiner.h"
 
 using namespace std;
 
@@ -117,13 +121,25 @@ void printState(std::vector<Phrase> v) // Print the current state of the paramte
 				cout << "adjective ";
 				break;
 			case 5:
-				cout << "sentence ";
+				cout << "determiner ";
 				break;
 			case 6:
+				cout << "adverb ";
+				break;
+			case 7:
+				cout << "adverbialPhrase ";
+				break;
+			case 8:
+				cout << "preposition ";
+				break;
+			case 9:
+				cout << "sentence ";
+				break;
+			case 10:
 				cout << "none ";
 				break;
 			default:
-				cout << "ERROR: bad phrase type ";
+				cout << "ERROR ";
 				break;
 		}
 	}
