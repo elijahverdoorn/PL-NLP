@@ -45,10 +45,10 @@ Phrase buildPhrase(PhraseType type, Phrase phrase) // creates the phrase for a s
 	switch (type)
 	{
 		case noun:
-			returner = new Noun(phrase.getWords());
+			returner = new NounPhrase(phrase.getWords());
 			break;
 		case verb:
-			returner = new Verb(phrase.getWords());
+			returner = new VerbPhrase(phrase.getWords());
 			break;
 		default:
 			break;
@@ -108,7 +108,7 @@ void printState(std::vector<Phrase> v) // Print the current state of the paramte
 				cout << "none ";
 				break;
 			default:
-				cout << "ERROR: bad phrase type";
+				cout << "ERROR: bad phrase type ";
 				break;
 		}
 	}
@@ -117,14 +117,11 @@ void printState(std::vector<Phrase> v) // Print the current state of the paramte
 
 vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0) // workhorse parsing function, written recursively
 {
-
-	//TODO: There's a segfault in here somewhere. find and fix it.
-
 	printState(v); // let the user know where we are, for debugging
 	if(v[pos].getPhraseType() != sentence)
 	{
-		if(!v[pos].isTerminal()) // is this a final state?
-		{
+		//if(!v[pos].isTerminal()) // is this a final state?
+		//{
 			PhraseType ptype = isPhrase(v[pos]);
 			if(ptype != none) // so long as the phrase is not none
 			{
@@ -158,7 +155,7 @@ vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0) // workhorse parsin
 					parse(v, pos + 1); // parse the next element of the structure
 				}
 			}
-		}
+		//}
 	}
 	return v;
 }
@@ -186,7 +183,7 @@ std::vector<Phrase> getInput()
 	for (unsigned int i = 0; i < tokenized.size(); ++i)
 	{
 		Phrase p(tokenized[i]);
-		cout << p.getPhraseType() << endl;
+		//cout << p.getPhraseType() << endl;
 		phrases.push_back(p);
 	}
 	return phrases;
