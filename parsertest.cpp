@@ -14,7 +14,9 @@
 
 using namespace std;
 
-PhraseType isPhrase(Phrase phrase) // checks if the phrase is a known type and returns that type.
+string endingPrint;
+
+PhraseType isPhrase(Phrase phrase) // checks if the phrase makes up one of the phrases that can be parsed alone, and if so return that type
 {
 	switch(phrase.getPhraseType())
 	{
@@ -24,6 +26,9 @@ PhraseType isPhrase(Phrase phrase) // checks if the phrase is a known type and r
 		case verb:
 			{return verb;}
 			break;
+		case adverb:
+			{return adverb;}
+			break;
 		default:
 			break;
 	}
@@ -32,6 +37,10 @@ PhraseType isPhrase(Phrase phrase) // checks if the phrase is a known type and r
 
 PhraseType isPhrase(Phrase first, Phrase second) // as above, but for more than 1 argument
 {
+	if (first.getPhraseType() == nounPhrase && second.getPhraseType() == verbPhrase)
+	{
+		return sentence;
+	}
 	if (first.getPhraseType() == adjective && second.getPhraseType() == nounPhrase)
 	{
 		return nounPhrase;
@@ -40,6 +49,27 @@ PhraseType isPhrase(Phrase first, Phrase second) // as above, but for more than 
 	{
 		return verbPhrase;
 	}	
+	if (first.getPhraseType() == determiner && second.getPhraseType() == nounPhrase)
+	{
+		return nounPhrase;
+	}
+	if (first.getPhraseType() == preposition && second.getPhraseType() == nounPhrase) 
+	{
+		return adverbialPhrase;
+	}
+	if (first.getPhraseType() == nounPhrase && second.getPhraseType() == preposition)
+	{
+		return adverbialPhrase;
+	}
+	if (first.getPhraseType() == verbPhrase && second.getPhraseType() == adverbialPhrase) 
+	{
+		return verbPhrase;
+	}
+	if (first.getPhraseType() == adverbialPhrase && second.getPhraseType() == verbPhrase)
+	{
+		return verbPhrase;
+	}
+
 	return none;
 }
 
@@ -54,6 +84,8 @@ Phrase buildPhrase(PhraseType type, Phrase phrase) // creates the phrase for a s
 		case verb:
 			returner = new VerbPhrase(phrase.getWords());
 			break;
+		case adverb:
+			returner = new AdverbialPhrase(phrase.getWords());
 		default:
 			break;
 	}
@@ -62,13 +94,9 @@ Phrase buildPhrase(PhraseType type, Phrase phrase) // creates the phrase for a s
 
 Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2) // as above, but the output contains the two phrases that are input
 {
-	cout << "building phrase" << endl;
+	//cout << "building phrase" << endl;
 
 	std::vector<string> v;
-	// v.reserve(phrase1.getWords().size() + phrase2.getWords().size());
-	// v.insert(v.end(), phrase1.getWords().begin(), phrase1.getWords().end());
-	// v.insert(v.end(), phrase2.getWords().begin(), phrase2.getWords().end()); // v contains the words in the 2 phrases, in the right order
-
 	for (unsigned int i = 0; i < phrase1.getWords().size(); ++i)
 	{
 		v.push_back(phrase1.getWords()[i]);
@@ -79,9 +107,6 @@ Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2) // as above,
 		v.push_back(phrase2.getWords()[i]);
 	}
 
-
-	cout << "copying complete" << endl;
-
 	Phrase* returner;
 
 	switch (type)
@@ -91,6 +116,9 @@ Phrase buildPhrase(PhraseType type, Phrase phrase1, Phrase phrase2) // as above,
 			break;
 		case verbPhrase:
 			returner = new VerbPhrase(v);
+			break;
+		case adverbialPhrase:
+			returner = new AdverbialPhrase(v);
 			break;
 		default:
 			break;
@@ -146,51 +174,111 @@ void printState(std::vector<Phrase> v) // Print the current state of the paramte
 	cout << endl;
 }
 
+
+string getState(std::vector<Phrase> v) // Print the current state of the paramter to the terminal
+{
+	string returner;
+	for (unsigned int i = 0; i < v.size(); i++)
+	{
+		//cout << v[i].getPhraseType();
+		switch (v[i].getPhraseType())
+		{
+			case 0:
+				returner.append("nounPhrase");
+				break;
+			case 1:
+				returner.append("verbPhrase");
+				break;
+			case 2:
+				returner.append("verb");
+				break;
+			case 3:
+				returner.append("noun");
+				break;
+			case 4:
+				returner.append("adjective");
+				break;
+			case 5:
+				returner.append("determiner");
+				break;
+			case 6:
+				returner.append("adverb");
+				break;
+			case 7:
+				returner.append("adverbialPhrase");
+				break;
+			case 8:
+				returner.append("preposition");
+				break;
+			case 9:
+				returner.append("sentence");
+				break;
+			case 10:
+				returner.append("none");
+				break;
+			default:
+				returner.append("ERROR");
+				break;
+		}
+	}
+	return returner;
+}
+
 vector<Phrase> parse(vector<Phrase> v, unsigned int pos = 0) // workhorse parsing function, written recursively
 {
-	printState(v); // let the user know where we are, for debugging
-	cout << "current position: " << pos << endl;
-	if(v[pos].getPhraseType() != sentence)
+	if (pos < v.size())
 	{
-		//if(!v[pos].isTerminal()) // is this a final state?
-		//{
-			PhraseType ptype = isPhrase(v[pos]);
-			if(ptype != none) // so long as the phrase is not none
-			{
-				vector<Phrase> newPhrase;
-				for(unsigned int i = 0; i < pos; i++)
-				{
-					newPhrase.push_back(v[i]);
-				}
-				newPhrase.push_back(buildPhrase(ptype, v[pos])); // build a phrase, then add it in it's place to the larger structure
-				for(unsigned int i = pos + 1; i < v.size(); i++)
-				{
-					newPhrase.push_back(v[i]);
-				}
-				parse(newPhrase, 0); // parse the result, starting over at the beginning of the structure
-			} else {
-				ptype = isPhrase(v[pos], v[pos + 1]);
-				if(ptype != none)
+		//printState(v); // let the user know where we are, for debugging
+		if(v[pos].getPhraseType() != sentence)
+		{
+			//if(!v[pos].isTerminal()) // is this a final state?
+			//{
+				PhraseType ptype = isPhrase(v[pos]);
+				if(ptype != none) // so long as the phrase is not none
 				{
 					vector<Phrase> newPhrase;
-					for (unsigned int i = 0; i < pos; i++)
+					for(unsigned int i = 0; i < pos; i++)
 					{
 						newPhrase.push_back(v[i]);
-						cout << "current i (1st loop):" << i << endl;
 					}
-					newPhrase.push_back(buildPhrase(ptype, v[pos], v[pos + 1])); // build a phrase, and add it in it's place to the larger structure
-					for (unsigned int i = pos + 2; i < v.size(); i++)
+					newPhrase.push_back(buildPhrase(ptype, v[pos])); // build a phrase, then add it in it's place to the larger structure
+					for(unsigned int i = pos + 1; i < v.size(); i++)
 					{
 						newPhrase.push_back(v[i]);
-						cout << "current i (2nd loop):" << i << endl;
 					}
-					parse(newPhrase, 0); // parse the new structure, starting at the beginning
+					printState(newPhrase);
+					parse(newPhrase, 0); // parse the result, starting over at the beginning of the structure
 				} else {
-					parse(v, pos + 1); // parse the next element of the structure
+					ptype = isPhrase(v[pos], v[pos + 1]);
+					if(ptype != none)
+					{
+						vector<Phrase> newPhrase;
+						for (unsigned int i = 0; i < pos; i++)
+						{
+							newPhrase.push_back(v[i]);
+							//cout << "current i (1st loop):" << i << endl;
+						}
+						newPhrase.push_back(buildPhrase(ptype, v[pos], v[pos + 1])); // build a phrase, and add it in it's place to the larger structure
+						for (unsigned int i = pos + 2; i < v.size(); i++)
+						{
+							newPhrase.push_back(v[i]);
+							//cout << "current i (2nd loop):" << i << endl;
+						}
+						if (newPhrase.size() != 1)
+						{
+							printState(newPhrase);
+							parse(newPhrase, 0); // parse the new structure, starting at the beginning
+						} else {
+							endingPrint = getState(newPhrase);
+							return newPhrase;
+						}
+					} else {
+						parse(v, pos + 1); // parse the next element of the structure
+					}
 				}
-			}
-		//}
-		//parse(v, pos + 1);
+			//}
+			//parse(v, pos + 1);
+		}
 	}
 	return v;
 }
@@ -228,7 +316,16 @@ std::vector<Phrase> getInput()
 int main ()
 {
 	vector<Phrase> testPhrase = getInput();
-	parse(testPhrase);
+	std::vector<Phrase> v = parse(testPhrase);
+	cout << "Finished parsing \" ";
+	for (unsigned int i = 0; i < v.size(); i++)
+	{
+		for(unsigned int j = 0; j < v[i].getWords().size(); j++)
+		{
+			cout << v[i].getWords()[j] << " ";
+		}
+	}
+	cout << "\"" << " Which becomes \"" << endingPrint << "\" when parsed." << endl;
 	return 0;
 
 }

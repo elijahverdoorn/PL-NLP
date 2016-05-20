@@ -9,17 +9,17 @@
 #include <fstream>
 
 enum PhraseType {
-	nounPhrase, //0
-	verbPhrase, //1
-	verb, 		//2
-	noun,		//3
-	adjective,	//4
-	det,		//5
-	adverb,		//6
+	nounPhrase, 	//0
+	verbPhrase, 	//1
+	verb, 			//2
+	noun,			//3
+	adjective,		//4
+	determiner,		//5
+	adverb,			//6
 	adverbialPhrase,//7
-	sentence,	//8
-	prep,		//9
-	none 		//10, used to represent invalid inputs 
+	sentence,		//8
+	preposition,	//9
+	none 			//10, used to represent invalid inputs 
 };
 
 class Phrase

@@ -39,11 +39,8 @@ bool Phrase::isTerminal()
 
 PhraseType Phrase::checkFiles(std::string word)
 {
-	//std::string returner;
-	int numTypes = 3;
-	PhraseType typeLabels[numTypes] = {adjective, adverb, det, prep, noun, verb};
-	//std::string typeFiles[numTypes] = {"adjectives.txt", "nouns.txt", "verbs.txt"};
-	//std::string typeLabels[numTypes] = {"adjective", "adverb", "article", "conjunction", "noun", "subject", "verb"};
+	int numTypes = 6;
+	PhraseType typeLabels[numTypes] = {adjective, adverb, determiner, preposition, noun, verb};
 	std::string typeFiles[numTypes] = {"adjectives.txt", "adverbs.txt", "determiners.txt", "prepositions.txt", "nouns.txt", "verbs.txt"};
 
 	for (int i = 0; i < numTypes; i++)
@@ -60,22 +57,5 @@ PhraseType Phrase::checkFiles(std::string word)
 		}
 		in.close();
 	}
-
-	/* 
-	if (strcmp(returner.c_str(), "adjective") == 0)
-	{
-		return adjective;
-	}
-	
-	if (strcmp(returner.c_str(), "noun") == 0)
-	{
-		return noun;
-	}
-	
-	if (strcmp(returner.c_str(), "verb") == 0)
-	{
-		return verb;
-	} */
-	//TODO: make this not shit
 	return none;
 }

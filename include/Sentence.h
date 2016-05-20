@@ -17,7 +17,7 @@ class Sentence : public Phrase
 
 public:
 	Sentence();
-	Sentence(std::vector<std::string> v;);
+	Sentence(std::vector<std::string> v);
 private:
 	void setPhraseType();
 
